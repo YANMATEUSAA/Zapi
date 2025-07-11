@@ -9,7 +9,7 @@ VERIFY_TOKEN = "token-secreto-aqui"
 # Endpoint que receberá os webhooks
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
-    # --- Parte de Verificação (usada apenas na configuração inicial) ---
+    # Parte de Verificação (usada apenas na configuração inicial) 
     if request.method == 'GET':
         # A Meta envia esses parâmetros para verificar seu endpoint
         if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
@@ -18,7 +18,7 @@ def webhook():
             return request.args["hub.challenge"], 200
         return "Hello world", 200
 
-    # --- Parte de Recebimento de Mensagens ---
+    # Parte de Recebimento de Mensagens
     if request.method == 'POST':
         # Obtém o corpo da notificação
         data = request.get_json()
