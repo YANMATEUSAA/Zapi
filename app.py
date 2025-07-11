@@ -3,7 +3,8 @@ import json
 from flask import Flask, request
 
 # Configuração
-# Substitua pelas suas credenciais reais da plataforma Meta
+
+ Meta
 ACCESS_TOKEN = ""
 PHONE_NUMBER_ID = ""
 
