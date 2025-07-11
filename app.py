@@ -2,19 +2,19 @@ import requests
 import json
 from flask import Flask, request
 
-# --- Configuração ---
+# Configuração
 # Substitua pelas suas credenciais reais da plataforma Meta
-ACCESS_TOKEN = "EAASUuZC9FZCeMBPMJdqheyaVUSr5JHxUgXQy0n977UR6hUN9YKkzvAeiWbsbUPWQKmcHsmmAXUGFAIW0m6tv8ZANe0Wq2Xa3s0dT8yOeZA3h11b8bZAlcvPEOONZAFUcQ3LulQRyEBvraD7dyl3mStZAmZB0PrjVJCdZAnfmDswFZAvfen0yQJ6iStJ0UGB9vr31YuWckM98pcMEav09z91QiQkmSY4MStCTf9ABjq2WVno3ACWEpMi5JVIRsf1BhOkcFx"
-PHONE_NUMBER_ID = "708169072380854"
+ACCESS_TOKEN = ""
+PHONE_NUMBER_ID = ""
 
 # Tokens e URLs
-VERIFY_TOKEN = "Wz8rK9hJ3qA7xT2vP6nB4cE1gU5fF0o" # Seu token secreto do webhook
-OLLAMA_API_URL = "http://localhost:11434/api/chat"
+VERIFY_TOKEN = "" # Seu token secreto do webhook
+OLLAMA_API_URL = "http://localhost:/api/chat"
 WHATSAPP_API_URL = f"https://graph.facebook.com/v20.0/{PHONE_NUMBER_ID}/messages"
 
 app = Flask(__name__)
 
-# --- Função para se comunicar com a IA (Ollama) ---
+# Função para se comunicar com a IA (Ollama)
 def get_ai_response(user_message):
     """Envia a mensagem do usuário para o Ollama e retorna a resposta da IA."""
     print(f"[*] Enviando para a IA: {user_message}")
@@ -29,7 +29,7 @@ def get_ai_response(user_message):
         print(f"[!] Erro ao conectar com o Ollama: {e}")
         return "Desculpe, estou com problemas para me conectar à minha inteligência."
 
-# --- Função para ENVIAR mensagens para o WhatsApp ---
+# Função para ENVIAR mensagens para o WhatsApp
 def send_whatsapp_message(recipient_id, message_text):
     """Envia uma mensagem de texto para um destinatário no WhatsApp."""
     print(f"[*] Enviando resposta para {recipient_id}: {message_text}")
@@ -52,7 +52,7 @@ def send_whatsapp_message(recipient_id, message_text):
     except requests.exceptions.RequestException as e:
         print(f"[!] Erro ao enviar mensagem para o WhatsApp: {e.response.text}")
 
-# --- Endpoint do Webhook ---
+# Endpoint do Webhook
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
@@ -81,6 +81,6 @@ def webhook():
             
         return "OK", 200
 
-# --- Inicia o servidor ---
+# Inicia o servidor 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
