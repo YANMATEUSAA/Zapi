@@ -2,21 +2,19 @@ import requests
 import json
 from flask import Flask, request
 
-# Configuração
-# Substitua pelas suas credenciais reais da plataforma Meta
+
 ACCESS_TOKEN = ""
 PHONE_NUMBER_ID = ""
 
-# Tokens e URLs
-VERIFY_TOKEN = "" # Seu token secreto do webhook
+
+VERIFY_TOKEN = ""
 OLLAMA_API_URL = "http://localhost:/api/chat"
 WHATSAPP_API_URL = f"https://graph.facebook.com/v20.0/{PHONE_NUMBER_ID}/messages"
 
 app = Flask(__name__)
 
-# Função para se comunicar com a IA (Ollama) 
+# Função pra se comunicar com a IA (Ollama) 
 def get_ai_response(user_message):
-    """Envia a mensagem do usuário para o Ollama e retorna a resposta da IA."""
     print(f"[*] Enviando para a IA: {user_message}")
     payload = {"model": "llama3.1", "messages": [{"role": "user", "content": user_message}], "stream": False}
     try:
@@ -27,11 +25,10 @@ def get_ai_response(user_message):
         return ai_message
     except requests.exceptions.RequestException as e:
         print(f"[!] Erro ao conectar com o Ollama: {e}")
-        return "Desculpe, estou com problemas para me conectar à minha inteligência."
+        return "Desculpe, estou com problemas para me conectar."
 
 # Função para ENVIAR mensagens para o WhatsApp 
 def send_whatsapp_message(recipient_id, message_text):
-    """Envia uma mensagem de texto para um destinatário no WhatsApp."""
     print(f"[*] Enviando resposta para {recipient_id}: {message_text}")
     
     payload = {
@@ -81,6 +78,6 @@ def webhook():
             
         return "OK", 200
 
-# --- Inicia o servidor ---
+# Inicia o servidor
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
